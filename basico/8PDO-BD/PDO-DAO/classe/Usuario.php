@@ -49,6 +49,37 @@ class Usuario{
         }
     }
 
+    // 03 PDO-DAO
+    public function getList(){
+        $sql = new Dbsql();
+        return $sql->SELECT("SELECT *FROM usuarios ORDER BY login;");
+    }
+
+    public static function search($login){ 
+        $sql = new Dbsql();
+        return $sql->SELECT("SELECT * FROM usuarios WHERE login LIKE :SEARCH ORDER BY login", array(
+            ':SEARCH'=>"%". $login ."%" 
+        ));
+    }
+
+    public function login($login, $password){
+        $sql = new Dbsql();
+        $results = $sql->SELECT("SELECT * FROM usuarios WHERE login = :LOGIN AND senha = :PASSWORD", array(
+            ":LOGIN"=>$login,
+            ":PASSWORD"=>$password
+        ));
+        if(count($results) > 0){
+            $row = $results[0];
+
+            $this->setIdususario($row['idusuario']);
+            $this->setLogin($row['login']);
+            $this->setSenha($row['senha']);
+            $this->setCadastro(new DateTime($row['dtcadastro']));
+        } else{
+            throw new Exception("Login e/ou senha invalidos");
+        }
+    }
+
     public function __toString(){
         return json_encode(array(
             "idusuario"=>$this->getIdususario(),
