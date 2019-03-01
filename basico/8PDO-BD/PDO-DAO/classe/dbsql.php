@@ -8,14 +8,14 @@ class Dbsql extends PDO{
         $this->conne = new PDO("mysql:host=localhost;dbname=banphp7", "root","root");
     }
 
-    public function setParams($statment, $parameters = array()){
+    public function setParams($statement, $parameters = array()){
         foreach($parameters as $chave => $valor){
-            $this->setParam($chave, $valor);
+            $this->setParam($statement, $chave, $valor);
         }
     }
 
-    private function setParam($statment, $key, $value ){
-        $statment->bindParam($key, $value);
+    private function setParam($statement, $key, $value ){
+        $statement->bindParam($key, $value);
     }
 
     public function query($rawQuery, $params = array()){

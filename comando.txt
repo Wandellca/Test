@@ -1,0 +1,11 @@
+ Ou crie um novo repositório na linha de comando
+echo "# ProMulParLin" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/Wandellca/ProMulParLin.git
+git push -u origin master
+
+Ou empurrar um repositório existente a partir da linha de comando
+git remote add origin https://github.com/Wandellca/ProMulParLin.git
+git push -u origin master
