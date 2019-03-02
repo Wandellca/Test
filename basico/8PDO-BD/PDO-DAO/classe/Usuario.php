@@ -40,12 +40,7 @@ class Usuario{
             ":ID"=>$id
         ));
         if(count($results) > 0){
-            $row = $results[0];
-
-            $this->setIdususario($row['idusuario']);
-            $this->setLogin($row['login']);
-            $this->setSenha($row['senha']);
-            $this->setCadastro(new DateTime($row['dtcadastro']));
+            $this->setData($results[0]);
         }
     }
 
@@ -69,15 +64,27 @@ class Usuario{
             ":PASSWORD"=>$password
         ));
         if(count($results) > 0){
-            $row = $results[0];
-
-            $this->setIdususario($row['idusuario']);
-            $this->setLogin($row['login']);
-            $this->setSenha($row['senha']);
-            $this->setCadastro(new DateTime($row['dtcadastro']));
+            $this->setData($results[0]);
         } else{
             throw new Exception("Login e/ou senha invalidos");
         }
+    }
+
+    // 04 PDO-DAO
+    public function setData($data){
+        $this->setIdususario($data['idusuario']);
+        $this->setLogin($data['login']);
+        $this->setSenha($data['senha']);
+        $this->setCadastro(new DateTime($data['dtcadastro']));
+    }
+    public function insert(){
+        $sql = new Dbsql();
+        $sql->SELECT("CALL sp_usuarios_insert(:LOGIN, :PASSWORD)", array(
+            ":LOGIN"=>$this->getLogin(),
+            ":PASSWORD"=>$this->getSenha()
+        ));
+        if(count($results) > 0){
+            $this->setData($results[0]);
     }
 
     public function __toString(){

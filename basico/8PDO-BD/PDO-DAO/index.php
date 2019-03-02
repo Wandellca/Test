@@ -5,7 +5,7 @@ require_once("config.php");
 /*
 $sql = new Dbsql();
 $usuario = $sql->select("SELECT *FROM usuarios");
-echo json_encode($usuario);*/
+echo json_encode($usuario);
 
 //02 PDO-DAO carrega um usuario
 $usuario = new Usuario();
@@ -26,4 +26,11 @@ $user->login("admin","231");
 echo  $user . "<br />";
 $user->login("admin","21");
 echo $user; 
+*/
+// 04 PDO-DAO 
+$aluno = new Usuario();
+$aluno->setLogin('aluno');
+$aluno->setSenha('@lun0');
+$aluno->insert();
+echo $aluno;
 ?>
