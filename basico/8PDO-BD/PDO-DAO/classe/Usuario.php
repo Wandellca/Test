@@ -114,7 +114,17 @@ class Usuario{
             'ID'=>$this->getIdususario();
         ));
     }
-
+    // 06 PDO-DAO DELETE
+    public function delete(){
+        $sql = new Dbsql();
+        $sql->query("DELETE FROM usuario WHERE idusuario = :ID", array(
+            ':ID'=>$this->getIdususario()
+        ));
+        $this->setIdususario(0);
+        $this->setSenha("");
+        $this->setLogin("");  
+        $this->setCadastro(new DateTime());      
+    }
 }
 
 ?>

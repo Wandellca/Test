@@ -37,9 +37,18 @@ $aluno->insert();
 echo $aluno;
 */
 
+/*
 // 05 PDO-DAO UPDATE
 $usuario = new Usuario();
 $usuario->loadbyId(8);
 $usuario->update("dev","#@$%");
 echo $usuario;
+*/
+
+// 06 PDO-DAO DELETE
+$user = new Usuario();
+$user->loadbyId(1);
+$user->delete();
+echo $user;
+
 ?>
