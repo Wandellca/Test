@@ -1,5 +1,5 @@
 <?php
-// 02 PDO-DAO
+// 02 PDO-DAO SELECT
 class Usuario{
     private $idusuario;
     private $login;
@@ -44,7 +44,7 @@ class Usuario{
         }
     }
 
-    // 03 PDO-DAO
+    // 03 PDO-DAO LIST
     public function getList(){
         $sql = new Dbsql();
         return $sql->SELECT("SELECT *FROM usuarios ORDER BY login;");
@@ -70,7 +70,8 @@ class Usuario{
         }
     }
 
-    // 04 PDO-DAO
+
+    // 04 PDO-DAO INSERT 
     public function setData($data){
         $this->setIdususario($data['idusuario']);
         $this->setLogin($data['login']);
@@ -86,6 +87,11 @@ class Usuario{
         if(count($results) > 0){
             $this->setData($results[0]);
     }
+  }  
+    public function __construtor($login="", $password=""){
+        $this->setLogin($login);
+        $this->setSenha($password);
+    }
 
     public function __toString(){
         return json_encode(array(
@@ -95,5 +101,20 @@ class Usuario{
             "dtcadastro"=>$this->getcadastro()->format("d-m-Y H:i:s")
         ));
     }
+
+    // 05 PDO-DAO UPDATE
+    public function update($login, $password){
+        $this->setLogin($login);
+        $this->setSenha($password);
+
+        $sql = new Dbsql();
+        $sql->query("UPDATE tb_usuario SET login =:LOGIN, senha = :PASSWORD WHERE idusuario = :ID", array(
+            ':LOGIN'=>$this->getlogin();
+            'PASSWORD'=>$this->getsenha();
+            'ID'=>$this->getIdususario();
+        ));
+    }
+
 }
+
 ?>
